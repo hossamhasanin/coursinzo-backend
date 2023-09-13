@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use App\Models\Lesson;
 use App\Http\Requests\StoreLessonRequest;
 use App\Http\Requests\UpdateLessonRequest;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class LessonController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Course $course) : JsonResource
     {
-        //
+        return new JsonResource($course->lessons()->paginate());
     }
 
     /**
