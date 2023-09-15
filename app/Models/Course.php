@@ -9,6 +9,13 @@ class Course extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        "name",
+        "description",
+        "user_id",
+        "thumbnail"
+    ];
+
     public function user() {
         return $this->belongsTo(User::class);
     }

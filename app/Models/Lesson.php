@@ -10,6 +10,14 @@ class Lesson extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        "video",
+        "name",
+        "description",
+        "thumbnail",
+        "course_id"
+    ];
+
     protected $casts = [
         "video" => "array"
     ];
