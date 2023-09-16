@@ -12,12 +12,12 @@ class LatestUsers extends BaseWidget
     public function table(Table $table): Table
     {
         return $table
-            ->query(User::query()->orderBy("created_at", "desc"))
+            ->query(User::query()->latest()->take(5))
             ->columns([
                 Tables\Columns\TextColumn::make('name')->searchable(),
                 Tables\Columns\TextColumn::make('email'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
-            ]);
+            ])->paginated(false);
     }
 }
