@@ -14,3 +14,6 @@ Route::post("/signup", [\App\Http\Controllers\UserController::class , "store"])
 
 Route::get("/get_daily_progress", [\App\Http\Controllers\UserController::class , "getDailyProgress"]);
 Route::post("/store_daily_progress" , [\App\Http\Controllers\UserController::class , "storeDailyProgress"]);
+
+Route::get("/get_courses_progress", [\App\Http\Controllers\UserController::class , "getLatestCoursesProgress"]);
+

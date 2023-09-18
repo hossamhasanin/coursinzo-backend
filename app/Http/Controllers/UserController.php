@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Exceptions\CouldntCreateUser;
 use App\Http\Requests\StoreDailyProgressRequest;
 use App\Http\Requests\StoreUserRequest;
+use App\Models\Course;
+use App\Models\Lesson;
 use App\Models\User;
 use App\Models\UserDailyProgress;
 use App\Repositories\UserRepository;
@@ -12,6 +14,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Throwable;
 
 class UserController extends Controller
@@ -20,6 +23,40 @@ class UserController extends Controller
         $dailyProgress = $request->user()->dailyProgress()->where("date" , "=" , Carbon::today())->get();
 
         return new JsonResponse($dailyProgress);
+    }
+
+    public function getLatestCoursesProgress(Request $request) : JsonResponse {
+        $numCoursesToGet = $request->courses_num ?? 2;
+        $boughtCourses = DB::table("courses")
+            ->join("orders", "courses.id", "=", "orders.course_id")
+            ->join("users", "orders.user_id", "=", "users.id")
+            ->where("users.id" , "=", $request->user()->id)
+            ->where("orders.status", "=", 1)
+            ->select("courses.*", "orders.status as order_status")
+            ->latest()
+            ->take($numCoursesToGet)
+            ->get();
+
+        $coursesProgress = $boughtCourses->map(function ($course, int $key) use ($request) {
+            $watchedLessons = Course::query()
+                ->find($course->id)
+                ->join("lessons" , "courses.id" , "=" , "lessons.course_id")
+                ->join("watched_lessons", "lessons.id", "=" , "watched_lessons.lesson_id")
+                ->where("watched_lessons.user_id" , "=" , $request->user()->id)
+                ->count();
+            $courseLessons = Lesson::query()
+                ->where("course_id" , "=" , $course->id)
+                ->count();
+            return [
+                "watched_lessons" => $watchedLessons,
+                "course_lessons" => $courseLessons,
+                "course_name" => $course->name
+            ];
+        });
+
+        return new JsonResponse([
+            "data" => $coursesProgress
+        ]);
     }
 
     /**
