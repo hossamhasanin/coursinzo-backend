@@ -22,7 +22,8 @@ class LessonFactory extends Factory
             "name" => $this->faker->word(),
             "thumbnail" => $this->faker->imageUrl(),
             "video" => [],
-            "course_id" => FactoryHelpers::getRandomTableId(Course::class)
+            "course_id" => FactoryHelpers::getRandomTableId(Course::class),
+            "duration" => $this->faker->randomDigit()
         ];
     }
 }
