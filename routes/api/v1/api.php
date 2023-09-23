@@ -11,6 +11,8 @@ Route::get("/lessons/{course}", [LessonController::class , "index"]);
 
 Route::post("/signup", [\App\Http\Controllers\UserController::class , "store"])
     ->withoutMiddleware("auth:sanctum");
+Route::post("/login", [\App\Http\Controllers\UserController::class , "login"])
+    ->withoutMiddleware("auth:sanctum");
 
 Route::get("/get_daily_progress", [\App\Http\Controllers\UserController::class , "getDailyProgress"]);
 Route::post("/store_daily_progress" , [\App\Http\Controllers\UserController::class , "storeDailyProgress"]);

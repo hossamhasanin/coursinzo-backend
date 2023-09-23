@@ -53,7 +53,7 @@ class LessonResource extends Resource
                             ->openable($isEditing)
                             ->previewable(!$isEditing)
                             ->required(),
-                    ])->columnSpanFull(),
+                    ])->columnSpanFull()->required()->minItems(1),
                 Forms\Components\FileUpload::make('thumbnail')
                     ->image()
                     ->required(),

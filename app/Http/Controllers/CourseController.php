@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Filter\v1\CoursesSearchFilter;
 use App\Models\Course;
 use App\Http\Requests\StoreCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\DB;
 
@@ -13,7 +15,7 @@ class CourseController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): JsonResource
+    public function index(Request $request): JsonResource
     {
         /**
          * This is example code of how to get course total duration by calculating it live from each lesson
@@ -26,9 +28,10 @@ class CourseController extends Controller
          * ->havingRaw('total_duration >= ? AND total_duration <= ?', [0, 90])
          * ->paginate()
          */
-
+        $filter = new CoursesSearchFilter();
+        $query = $filter->transform($request);
         return new JsonResource(
-            Course::query()->paginate()
+            Course::query()->where($query)->paginate()
         );
     }
 

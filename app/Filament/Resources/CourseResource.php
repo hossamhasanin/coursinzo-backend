@@ -34,13 +34,21 @@ class CourseResource extends Resource
                                 Forms\Components\TextInput::make('name')
                                     ->required()
                                     ->maxLength(255),
-                                Forms\Components\Textarea::make('description')
-                                    ->maxLength(65535),
+                                Forms\Components\TextInput::make('price')
+                                    ->required()
+                                    ->suffix("EGP"),
                             ])->columnSpanFull(),
+                        Forms\Components\Select::make('category_id')
+                            ->relationship('category', 'name')
+                            ->preload()
+                            ->searchable()
+                            ->required(),
                         Forms\Components\FileUpload::make('thumbnail')
                             ->columns(1)
                             ->image()
                             ->required(),
+                        Forms\Components\Textarea::make('description')
+                            ->maxLength(65535),
                     ])->columns(2)
             ]);
     }
@@ -49,10 +57,11 @@ class CourseResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('user.name')
-                    ->numeric()
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('name')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('user.name'),
+                Tables\Columns\TextColumn::make('price')
+                    ->suffix(" EGP")
                     ->searchable(),
                 Tables\Columns\TextColumn::make('duration')
                     ->sortable()
@@ -67,7 +76,7 @@ class CourseResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
+                Tables\Actions\DeleteAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([

@@ -8,6 +8,7 @@ class CoursesSearchFilter extends FilterSearchApi
 {
     protected array $allowedColumnOperations = [
         "name" => ["se"],
-        "price" => ["gt" , "lt" , "gte" , "lte"]
+        "price" => ["gt" , "lt" , "gte" , "lte"],
+        "duration" => ["gt", "lt", "gte", "lte"]
     ];
 }

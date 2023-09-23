@@ -30,7 +30,7 @@ abstract class FilterSearchApi
 
             foreach ($operations as $operation) {
                 if (isset($query[$operation])){
-                    $filterArr[] = [$param , $this->supportedOperations[$operation], $operation == "se" ? "%${$query[$operation]}%" : $query[$operation]];
+                    $filterArr[] = [$param , $this->supportedOperations[$operation], $operation == "se" ? "%$query[$operation]%" : $query[$operation]];
                 }
             }
         }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\CouldntCreateUser;
+use App\Http\Requests\LoginUserRequest;
 use App\Http\Requests\StoreDailyProgressRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Models\Course;
@@ -15,6 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Throwable;
 
 class UserController extends Controller
@@ -104,5 +106,25 @@ class UserController extends Controller
             "message" => "User registered successfully",
             "token" => $newAccessToken->plainTextToken
         ]);
+    }
+
+    public function login(LoginUserRequest $request) : JsonResponse {
+        /**
+         * @var User $user
+         */
+        $user = User::query()->firstWhere([
+            ["email" , "=" , $request->validated()["email"]]
+        ]);
+
+        if (Hash::check($request->validated()["password"], $user->password)){
+            return new JsonResponse([
+                "message" => "Logged in successfully",
+                "token" => $user->createToken("access_token")->plainTextToken
+            ]);
+        } else {
+            return new JsonResponse([
+                "message" => "Wrong email or password"
+            ], 401);
+        }
     }
 }
