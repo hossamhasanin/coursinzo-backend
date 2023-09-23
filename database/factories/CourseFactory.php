@@ -27,7 +27,8 @@ class CourseFactory extends Factory
             "thumbnail" => $this->faker->imageUrl(),
             "user_id" => FactoryHelpers::getRandomTableId(User::class),
             "category_id" => FactoryHelpers::getRandomTableId(Category::class),
-            "price" => $this->faker->randomDigit()
+            "price" => $this->faker->randomDigit(),
+            "duration" => 0
         ];
     }
 }

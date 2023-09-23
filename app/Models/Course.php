@@ -17,7 +17,8 @@ class Course extends Model
         "user_id",
         "category_id",
         "price",
-        "thumbnail"
+        "thumbnail",
+        "duration"
     ];
 
     public function user(): BelongsTo

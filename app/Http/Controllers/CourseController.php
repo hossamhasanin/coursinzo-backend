@@ -15,24 +15,20 @@ class CourseController extends Controller
      */
     public function index(): JsonResource
     {
+        /**
+         * This is example code of how to get course total duration by calculating it live from each lesson
+         * Course::query()->select('courses.*')
+         * ->leftJoin('lessons', 'courses.id', '=', 'lessons.course_id')
+         * ->selectRaw('COALESCE(SUM(lessons.duration), 0) as total_duration')
+         * ->groupBy('courses.id', 'courses.name', 'courses.description',
+         * 'courses.thumbnail', 'courses.user_id', 'courses.created_at',
+         * 'courses.updated_at', 'courses.price')
+         * ->havingRaw('total_duration >= ? AND total_duration <= ?', [0, 90])
+         * ->paginate()
+         */
 
-//        dd(Course::query()->select('courses.*')
-//            ->leftJoin('lessons', 'courses.id', '=', 'lessons.course_id')
-//            ->selectRaw('SUM(lessons.duration) as total_duration')
-//            ->groupBy('courses.id', 'courses.name', 'courses.description',
-//                'courses.thumbnail', 'courses.user_id', 'courses.created_at', 'courses.updated_at', 'courses.price')
-//            ->havingRaw('total_duration >= ? AND total_duration <= ?', [0, 90])
-//            ->get()
-//        );
         return new JsonResource(
-            Course::query()->select('courses.*')
-                ->leftJoin('lessons', 'courses.id', '=', 'lessons.course_id')
-                ->selectRaw('COALESCE(SUM(lessons.duration), 0) as total_duration')
-                ->groupBy('courses.id', 'courses.name', 'courses.description',
-                    'courses.thumbnail', 'courses.user_id', 'courses.created_at',
-                    'courses.updated_at', 'courses.price')
-                ->havingRaw('total_duration >= ? AND total_duration <= ?', [0, 90])
-                ->paginate()
+            Course::query()->paginate()
         );
     }
 

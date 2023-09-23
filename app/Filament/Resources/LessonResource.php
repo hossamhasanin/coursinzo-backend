@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\LessonResource\Pages;
+use App\Models\Course;
 use App\Models\Lesson;
 use Filament\Forms;
 use Filament\Forms\Components\Select;

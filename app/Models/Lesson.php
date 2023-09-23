@@ -15,7 +15,6 @@ class Lesson extends Model
         "name",
         "description",
         "thumbnail",
-        "duration",
         "course_id"
     ];
 

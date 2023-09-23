@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table("lessons" , function (Blueprint $table) {
+        Schema::table("courses" , function (Blueprint $table) {
             $table->unsignedFloat("duration");
         });
     }
@@ -21,7 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table("lessons", function (Blueprint $table) {
+        Schema::table("courses", function (Blueprint $table) {
             $table->dropColumn("duration");
         });
     }

@@ -54,6 +54,10 @@ class CourseResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('duration')
+                    ->sortable()
+                    ->label("Course duration")
+                    ->time("H:i:s"),
                 Tables\Columns\ImageColumn::make('thumbnail'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
