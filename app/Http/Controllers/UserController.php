@@ -117,6 +117,7 @@ class UserController extends Controller
         ]);
 
         if (Hash::check($request->validated()["password"], $user->password)){
+            $user->tokens()->delete();
             return new JsonResponse([
                 "message" => "Logged in successfully",
                 "token" => $user->createToken("access_token")->plainTextToken

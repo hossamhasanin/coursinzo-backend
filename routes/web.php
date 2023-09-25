@@ -16,3 +16,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+\BeyondCode\LaravelWebSockets\Facades\WebSocketsRouter::webSocket("/send-message", \App\Websockets\RPCWebsocketHandler::class);

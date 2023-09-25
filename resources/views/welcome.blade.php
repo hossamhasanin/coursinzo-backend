@@ -137,4 +137,21 @@
             </div>
         </div>
     </body>
+
+<script>
+    const websocket = new WebSocket(`ws://${window.location.hostname}:6001/send-message?appKey=coursinzo-key&auth=4|OMfN95WwcfX3AyYgHDsQu2DjTzZ3JhA7xSdFkcXL8082dd86`);
+    websocket.onopen = function (event) {
+        console.log("connected");
+        websocket.send(JSON.stringify({
+            message: "hi",
+            user: "Hossam"
+        }));
+    };
+    websocket.onmessage = function (message) {
+        console.log(message);
+    }
+    websocket.onerror = function () {
+        console.log("error");
+    }
+</script>
 </html>
