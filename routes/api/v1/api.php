@@ -19,6 +19,8 @@ Route::post("/store_daily_progress" , [\App\Http\Controllers\UserController::cla
 
 Route::get("/get_courses_progress", [\App\Http\Controllers\UserController::class , "getLatestCoursesProgress"]);
 
+Route::get("/chats" , [\App\Http\Controllers\ChatController::class, "index"]);
+
 Route::get("/test" , function (\Illuminate\Http\Request $request) {
    \Illuminate\Support\Facades\Broadcast::auth($request);
 })->withoutMiddleware("auth:sanctum");
