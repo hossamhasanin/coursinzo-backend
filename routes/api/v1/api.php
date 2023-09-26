@@ -20,6 +20,6 @@ Route::post("/store_daily_progress" , [\App\Http\Controllers\UserController::cla
 Route::get("/get_courses_progress", [\App\Http\Controllers\UserController::class , "getLatestCoursesProgress"]);
 
 Route::get("/test" , function (\Illuminate\Http\Request $request) {
-   event(new \App\Events\SendMessageEvent());
+   \Illuminate\Support\Facades\Broadcast::auth($request);
 })->withoutMiddleware("auth:sanctum");
 

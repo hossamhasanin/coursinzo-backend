@@ -139,7 +139,7 @@
     </body>
 
 <script>
-    const websocket = new WebSocket(`ws://${window.location.hostname}:6001/send-message?appKey=coursinzo-key&auth=4|OMfN95WwcfX3AyYgHDsQu2DjTzZ3JhA7xSdFkcXL8082dd86`);
+    const websocket = new WebSocket(`ws://${window.location.hostname}:6001/send-message?appKey=coursinzo-key&auth=6|dUKLA69KpMr4nMwhYRho5oXeOfmKsDefc2egwN4d9718b293`);
     websocket.onopen = function (event) {
         console.log("connected");
         websocket.send(JSON.stringify({
