@@ -19,8 +19,7 @@ Route::post("/store_daily_progress" , [\App\Http\Controllers\UserController::cla
 
 Route::get("/get_courses_progress", [\App\Http\Controllers\UserController::class , "getLatestCoursesProgress"]);
 
-Route::post("/test" , function (\Illuminate\Http\Request $request) {
-   $accessToken = $request->header("Authorization");
-   dd(\Laravel\Sanctum\PersonalAccessToken::findToken(explode(" ", $accessToken)[1]));
+Route::get("/test" , function (\Illuminate\Http\Request $request) {
+   event(new \App\Events\SendMessageEvent());
 })->withoutMiddleware("auth:sanctum");
 

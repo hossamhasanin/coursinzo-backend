@@ -2,6 +2,7 @@
 
 namespace App\Websockets;
 
+use App\Events\SendMessageEvent;
 use App\Exceptions\WebSocketWrongAccessToken;
 use BeyondCode\LaravelWebSockets\Apps\App;
 use BeyondCode\LaravelWebSockets\QueryParameters;
@@ -76,6 +77,7 @@ class RPCWebsocketHandler implements MessageComponentInterface
 
     public function onMessage(ConnectionInterface $conn, MessageInterface $msg)
     {
+        event(new SendMessageEvent());
         dump($msg->getPayload());
     }
 }
