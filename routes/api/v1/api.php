@@ -21,6 +21,8 @@ Route::get("/get_courses_progress", [\App\Http\Controllers\UserController::class
 
 Route::get("/chats" , [\App\Http\Controllers\ChatController::class, "index"]);
 
+Route::get("/notifications" , [\App\Http\Controllers\NotificationController::class, "index"]);
+
 Route::get("/test" , function (\Illuminate\Http\Request $request) {
    \Illuminate\Support\Facades\Broadcast::auth($request);
 })->withoutMiddleware("auth:sanctum");
